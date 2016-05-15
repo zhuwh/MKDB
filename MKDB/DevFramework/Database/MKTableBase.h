@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <FMDB.h>
+#import "FMDB.h"
 
 @protocol MKTableBaseProtocol <NSObject>
 
