@@ -78,6 +78,7 @@
 		D2D35A511CE8BA3900FE6795 /* TestRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestRecord.m; sourceTree = "<group>"; };
 		D2D35A521CE8BA3900FE6795 /* TestTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTable.h; sourceTree = "<group>"; };
 		D2D35A531CE8BA3900FE6795 /* TestTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTable.m; sourceTree = "<group>"; };
+		D2D35A621CE9687700FE6795 /* MKDB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKDB.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +206,7 @@
 				D2D35A4C1CE8BA3900FE6795 /* MKRecord.m */,
 				D2D35A4D1CE8BA3900FE6795 /* MKTableBase.h */,
 				D2D35A4E1CE8BA3900FE6795 /* MKTableBase.m */,
+				D2D35A621CE9687700FE6795 /* MKDB.h */,
 			);
 			path = Database;
 			sourceTree = "<group>";

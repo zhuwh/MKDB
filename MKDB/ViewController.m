@@ -35,7 +35,7 @@
 
 - (IBAction)updateAction:(id)sender {
     NSDictionary* dic = @{@"name":@"zhuwenhui",@"age":[NSNumber numberWithInt:20]};
-    [[[AppContext sharedInstance] databaseManager] updateWithUri:CONTENT_URI_TEST values:dic whereClause:nil whereArgs:nil];
+    [[[AppContext sharedInstance] databaseManager] updateWithUri:CONTENT_URI_TEST values:dic whereClause:@"age=?" whereArgs:@[[NSNumber numberWithLongLong:LONG_LONG_MAX]]];
 }
 
 - (IBAction)queryAction:(id)sender {

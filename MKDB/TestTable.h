@@ -6,7 +6,7 @@
 //  Copyright © 2016年 mark. All rights reserved.
 //
 
-#import "MKTableBase.h"
+#import "MKDB.h"
 
 @interface TestTable : MKTableBase<MKTableBaseProtocol>
 

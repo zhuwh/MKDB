@@ -31,6 +31,7 @@
     return self;
 }
 
+#pragma mark override method
 - (BOOL) onCreateWithDatabase : (FMDatabase*) db{
     NSString* tableName = [self.child tableName];
     NSDictionary* columnInfo = [self.child columnInfo];
@@ -100,6 +101,8 @@
         NSString* obj = nil;
         if ([value isKindOfClass:[NSString class]]) {
             obj = [NSString stringWithFormat:@"%@ = '%@'",column,value];
+        }else if([value isKindOfClass:[NSNull class]]){
+            obj = [NSString stringWithFormat:@"%@ = NULL",column];
         }else{
             obj = [NSString stringWithFormat:@"%@ = %@",column,value];
         }
@@ -149,6 +152,11 @@
     return array;
 }
 
+- (void) settingsWithDatabase:(FMDatabase*) db createOrAlert:(BOOL)createOrAlert oldVersion:(uint32_t) oldV newVersion:(uint32_t) newV{
+    
+}
+
+#pragma mark private method
 - (void) dictionary:(NSDictionary *)dict toEntity:(NSObject*)entity{
     if (dict && entity) {
         for (NSString *keyName in [dict allKeys]) {
@@ -166,4 +174,6 @@
         
     }
 }
+
+
 @end

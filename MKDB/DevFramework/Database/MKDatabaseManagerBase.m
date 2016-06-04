@@ -72,6 +72,8 @@
     NSArray<MKTableBase*> *tableArray = [self.tableDictionary allValues];
     for (MKTableBase* table in tableArray) {
         [table onCreateWithDatabase:db];
+        id<MKTableBaseProtocol> protocol = (id<MKTableBaseProtocol>)table;
+        [protocol settingsWithDatabase:db createOrAlert:YES oldVersion:0 newVersion:0];
     }
 }
 
@@ -79,6 +81,8 @@
     NSArray<MKTableBase*> *tableArray = [self.tableDictionary allValues];
     for (MKTableBase* table in tableArray) {
         [table onAlterWithDatabase:db oldVersion:oldV newVersion:newV];
+        id<MKTableBaseProtocol> protocol = (id<MKTableBaseProtocol>)table;
+        [protocol settingsWithDatabase:db createOrAlert:NO oldVersion:oldV newVersion:newV];
     }
 }
 
@@ -86,6 +90,8 @@
     NSArray<MKTableBase*> *tableArray = [self.tableDictionary allValues];
     for (MKTableBase* table in tableArray) {
         [table onAlterWithDatabase:db oldVersion:oldV newVersion:newV];
+        id<MKTableBaseProtocol> protocol = (id<MKTableBaseProtocol>)table;
+        [protocol settingsWithDatabase:db createOrAlert:NO oldVersion:oldV newVersion:newV];
     }
 }
 

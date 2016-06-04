@@ -22,6 +22,8 @@
 - (int) deleteWithDatabase : (FMDatabase*) db whereClause:(NSString*)whereClause whereArgs:(NSArray *) whereArgs;
 - (int) updateWithDatabase : (FMDatabase*) db values:(NSDictionary*)values whereClause:(NSString*)whereClause whereArgs:(NSArray*)whereArgs;
 - (NSArray*) queryWithDatabase:(FMDatabase*) db columns:(NSArray*)columns  whereClause:(NSString*)whereClause whereArgs:(NSArray *) whereArgs sortOrder:(NSString*)sortOrder;
+- (void) settingsWithDatabase:(FMDatabase*) db createOrAlert:(BOOL)createOrAlert oldVersion:(uint32_t) oldV newVersion:(uint32_t) newV;
+
 @end
 
 @interface MKTableBase : NSObject

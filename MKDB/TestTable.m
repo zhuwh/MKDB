@@ -32,4 +32,9 @@
 - (Class) recordClass{
     return [TestRecord class];
 }
+
+- (void) settingsWithDatabase:(FMDatabase*) db createOrAlert:(BOOL)createOrAlert oldVersion:(uint32_t) oldV newVersion:(uint32_t) newV{
+    
+}
+
 @end

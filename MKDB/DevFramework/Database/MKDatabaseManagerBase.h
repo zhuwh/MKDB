@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "FMDB.h"
 #import "MKTableBase.h"
+//#import "MKRecord.h"
 
 @protocol MKDatabaseProtocol <NSObject>
 
@@ -24,6 +25,7 @@
 @property (strong,nonatomic,readonly)FMDatabaseQueue* queue;
 
 - (void) insertWithUri:(NSString*)uri values:(NSDictionary*)values;
+//- (void) insertWithUri:(NSString*)uri recordObject:(MKRecord*)values;
 - (int) deleteWithUri:(NSString*)uri whereClause:(NSString*)whereClause whereArgs:(NSArray *) whereArgs;
 - (int) updateWithUri : (NSString*) uri values:(NSDictionary*)values whereClause:(NSString*)whereClause whereArgs:(NSArray*)whereArgs;
 - (NSArray*) queryWithUri:(NSString*)uri columns:(NSArray*)columns  whereClause:(NSString*)whereClause whereArgs:(NSArray *) whereArgs sortOrder:(NSString*)sortOrder;

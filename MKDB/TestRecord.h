@@ -6,7 +6,7 @@
 //  Copyright © 2016年 mark. All rights reserved.
 //
 
-#import "MKRecord.h"
+#import "MKDB.h"
 
 @interface TestRecord : MKRecord<MKRecordProtocol>{
 }

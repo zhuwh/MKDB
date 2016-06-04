@@ -6,7 +6,7 @@
 //  Copyright © 2016年 mark. All rights reserved.
 //
 
-#import "MKDatabaseManagerBase.h"
+#import "MKDB.h"
 
 
 @interface TestDatabaseManager : MKDatabaseManagerBase<MKDatabaseProtocol>
