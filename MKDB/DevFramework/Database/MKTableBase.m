@@ -97,7 +97,7 @@
     NSMutableArray* setValuesArray = [NSMutableArray array];
     NSArray *columns = [values allKeys];
     for (NSString* column in columns) {
-        NSString* value = [values objectForKey:column];
+        id value = [values objectForKey:column];
         NSString* obj = nil;
         if ([value isKindOfClass:[NSString class]]) {
             obj = [NSString stringWithFormat:@"%@ = '%@'",column,value];
@@ -164,7 +164,10 @@
              NSString *methodName = [NSString stringWithFormat:@"set%@%@:", [[keyName substringToIndex:1] uppercaseString], [keyName substringFromIndex:1]];
             SEL methodSelector = NSSelectorFromString(methodName);
             if ([entity respondsToSelector:methodSelector]) {
-                 NSString* value = [dict objectForKey:keyName];
+                 id value = [dict objectForKey:keyName];
+                 if([value isKindOfClass:[NSNull class]]){
+                     value = nil;
+                 }
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
                 [entity performSelector:methodSelector withObject:value];
