@@ -1,9 +1,29 @@
-osx_image: xcode7.3
 language: objective-c
 
-script:
-- xcodebuild [DEFAULT_OPTIONS] CODE_SIGNING_REQUIRED=NO
+osx_image: xcode7.3
 
-xcode_workspace: MKDB.xcworkspace
-xcode_scheme: MKDB
-profile: Podfile
+# xcode_project: SampleNotifcations/SampleNotifcations.xcodeproj
+# xcode_workspace: SampleNotifcations/SampleNotifcations.xcworkspace
+
+# xcode_scheme: SampleNotifcationsTests
+
+podfile: Podfile
+
+# xcode_sdk: iphonesimulator9.0
+
+script:
+
+xctool
+-workspace MKDB.xcworkspace
+-scheme MKDB
+-sdk iphonesimulator
+-destination 'platform=iOS Simulator,name=iPhone 6'
+build
+test
+ONLY_ACTIVE_ARCH=NO
+CODE_SIGN_IDENTITY=""
+CODE_SIGNING_REQUIRED=NO
+
+before_install:
+- brew update
+- brew uninstall xctool && brew install --HEAD xctool
