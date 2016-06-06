@@ -10,7 +10,7 @@
 
 
 @interface MKRecord()
-//@property(weak,nonatomic,readwrite) id<MKRecordProtocol> child;
+@property(weak,nonatomic,readwrite) id<MKRecordProtocol> child;
 
 @end
 
@@ -18,7 +18,7 @@
 - (instancetype)init{
     self = [super init];
     if (self && [self conformsToProtocol:@protocol(MKRecordProtocol)]) {
-//        self.child = (id<MKTableBaseProtocol>)self;
+        self.child = (id<MKRecordProtocol>)self;
     }else{
         NSException *exception = [NSException exceptionWithName:@"MKRecord init error" reason:@"the child class must conforms to protocol: <MKRecordProtocol>" userInfo:nil];
         @throw exception;

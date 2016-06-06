@@ -12,10 +12,11 @@
 
 @required
 //- (NSArray *) columnKeyArray;
+- (NSString*) bindPrimaryKey;
 
 @end
 
 @interface MKRecord : NSObject
-//@property(weak,nonatomic,readonly) id<MKRecordProtocol> child;
+@property(weak,nonatomic,readonly) id<MKRecordProtocol> child;
 
 @end

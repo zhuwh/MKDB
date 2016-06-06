@@ -10,8 +10,8 @@
 
 @implementation TestRecord
 
-//- (NSArray *) columnKeyArray{
-//    return @[@"primaryKey",@"age",@"name",@"tomas"];
-//}
+- (NSString*) bindPrimaryKey{
+    return @"primaryKey";
+}
 
 @end

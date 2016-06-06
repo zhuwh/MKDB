@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "FMDB.h"
+#import "MKRecord.h"
 
 @protocol MKTableBaseProtocol <NSObject>
 
@@ -19,8 +20,11 @@
 @optional
 - (Class) recordClass;
 - (BOOL) insertWithDatabase : (FMDatabase*) db values:(NSDictionary*)values;
+- (BOOL) insertWithDatabase : (FMDatabase*) db recordObject:(MKRecord*)object;
 - (int) deleteWithDatabase : (FMDatabase*) db whereClause:(NSString*)whereClause whereArgs:(NSArray *) whereArgs;
+- (int) deleteWithDatabase : (FMDatabase*) db recordObject:(MKRecord*)object;
 - (int) updateWithDatabase : (FMDatabase*) db values:(NSDictionary*)values whereClause:(NSString*)whereClause whereArgs:(NSArray*)whereArgs;
+- (int) updateWithDatabase : (FMDatabase*) db recordObject:(MKRecord*)object;
 - (NSArray*) queryWithDatabase:(FMDatabase*) db columns:(NSArray*)columns  whereClause:(NSString*)whereClause whereArgs:(NSArray *) whereArgs sortOrder:(NSString*)sortOrder;
 - (void) settingsWithDatabase:(FMDatabase*) db createOrAlert:(BOOL)createOrAlert oldVersion:(uint32_t) oldV newVersion:(uint32_t) newV;
 

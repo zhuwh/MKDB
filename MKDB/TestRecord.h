@@ -11,9 +11,9 @@
 @interface TestRecord : MKRecord<MKRecordProtocol>{
 }
 
-@property (nonatomic, strong) NSNumber *primaryKey;
-@property (nonatomic, strong) NSNumber *age;
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *tomas;
+@property (nonatomic, copy) NSNumber *primaryKey;
+@property (nonatomic, copy) NSNumber *age;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *tomas;
 
 @end

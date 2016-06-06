@@ -103,11 +103,27 @@
     }];
 }
 
+- (void) insertWithUri:(NSString*)uri recordObject:(MKRecord*)object{
+    [[self queue] inDatabase:^(FMDatabase *db) {
+        MKTableBase* table = [self.tableDictionary objectForKey:uri];
+        [table.child insertWithDatabase:db recordObject:object];
+    }];
+}
+
 - (int) deleteWithUri:(NSString*)uri whereClause:(NSString*)whereClause whereArgs:(NSArray *) whereArgs{
     __block int num = 0;
     [[self queue] inDatabase:^(FMDatabase *db) {
         MKTableBase* table = [self.tableDictionary objectForKey:uri];
         num = [table.child deleteWithDatabase:db whereClause:whereClause whereArgs:whereArgs];
+    }];
+    return num;
+}
+
+- (int) deleteWithUri:(NSString*)uri recordObject:(MKRecord*)object{
+    __block int num = 0;
+    [[self queue] inDatabase:^(FMDatabase *db) {
+        MKTableBase* table = [self.tableDictionary objectForKey:uri];
+        num = [table.child deleteWithDatabase:db recordObject:object];
     }];
     return num;
 }
@@ -120,6 +136,16 @@
     }];
     return num;
 }
+
+- (int) updateWithUri : (NSString*) uri recordObject:(MKRecord*)object{
+    __block int num = 0;
+    [[self queue] inDatabase:^(FMDatabase *db) {
+        MKTableBase* table = [self.tableDictionary objectForKey:uri];
+        num = [table.child updateWithDatabase:db recordObject:object];
+    }];
+    return num;
+}
+
 - (NSArray*) queryWithUri:(NSString*)uri columns:(NSArray*)columns  whereClause:(NSString*)whereClause whereArgs:(NSArray *) whereArgs sortOrder:(NSString*)sortOrder{
     __block NSArray* array = [NSArray array];
     [[self queue] inDatabase:^(FMDatabase *db) {

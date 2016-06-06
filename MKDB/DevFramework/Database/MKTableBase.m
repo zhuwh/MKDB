@@ -10,7 +10,7 @@
 #import "MKRecord.h"
 #import <objc/runtime.h>
 
-#define getColumnMethod(obj,type,key) [obj type##ForColumn:key]
+//#define getColumnMethod(obj,type,key) [obj type##ForColumn:key]
 
 @interface MKTableBase()
 
@@ -77,6 +77,12 @@
     return result;
 }
 
+- (BOOL) insertWithDatabase : (FMDatabase*) db recordObject:(MKRecord*)object{
+    NSDictionary* columnInfo = [self.child columnInfo];
+    NSDictionary* values = [self keys:columnInfo.allKeys withEntity:object];
+    return [self insertWithDatabase:db values:values];
+}
+
 - (int) deleteWithDatabase : (FMDatabase*) db whereClause:(NSString*)whereClause whereArgs:(NSArray *) whereArgs{
     NSString* tableName = [self.child tableName];
     NSString* deleteWhere = @"";
@@ -90,6 +96,23 @@
         return 0;
     }
     return  [db changes];
+}
+
+- (int) deleteWithDatabase : (FMDatabase*) db recordObject:(MKRecord*)object{
+    id<MKRecordProtocol> record = (id<MKRecordProtocol>)object;
+    NSString* primaryKey = [record bindPrimaryKey];
+    id value = nil;
+    SEL methodSelector = NSSelectorFromString(primaryKey);
+    if ([object respondsToSelector:methodSelector]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        value = [object performSelector:methodSelector];
+        if (!value) {
+            value = [NSNull null];
+        }
+#pragma clang diagnostic pop
+    }
+    return [self deleteWithDatabase:db whereClause:[NSString stringWithFormat:@"%@ = ?",primaryKey] whereArgs:@[value]];
 }
 
 - (int) updateWithDatabase : (FMDatabase*) db values:(NSDictionary*)values whereClause:(NSString*)whereClause whereArgs:(NSArray*)whereArgs{
@@ -120,6 +143,25 @@
         return 0;
     }
     return [db changes];
+}
+
+- (int) updateWithDatabase : (FMDatabase*) db recordObject:(MKRecord*)object{
+    NSDictionary* columnInfo = [self.child columnInfo];
+    NSDictionary* values = [self keys:columnInfo.allKeys withEntity:object];
+    id<MKRecordProtocol> record = (id<MKRecordProtocol>)object;
+    NSString* primaryKey = [record bindPrimaryKey];
+    id arg = nil;
+    SEL methodSelector = NSSelectorFromString(primaryKey);
+    if ([object respondsToSelector:methodSelector]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        arg = [object performSelector:methodSelector];
+        if (!arg) {
+            arg = [NSNull null];
+        }
+#pragma clang diagnostic pop
+    }
+    return [self updateWithDatabase:db values:values whereClause:[NSString stringWithFormat:@"%@ = ?",primaryKey] whereArgs:@[arg]];
 }
 
 - (NSArray*) queryWithDatabase:(FMDatabase*) db columns:(NSArray*)columns  whereClause:(NSString*)whereClause whereArgs:(NSArray *) whereArgs sortOrder:(NSString*)sortOrder{
@@ -176,6 +218,27 @@
         }
         
     }
+}
+
+- (NSDictionary*) keys:(NSArray *)keys withEntity:(NSObject*)entity{
+    NSMutableDictionary* dic = [NSMutableDictionary dictionary];
+    if (keys && entity) {
+        for (NSString *methodName in keys) {
+            SEL methodSelector = NSSelectorFromString(methodName);
+            if ([entity respondsToSelector:methodSelector]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                id value = [entity performSelector:methodSelector];
+                if (!value) {
+                    value = [NSNull null];
+                }
+#pragma clang diagnostic pop
+                [dic setObject:value forKey:methodName];
+            }
+        }
+        
+    }
+    return dic;
 }
 
 
