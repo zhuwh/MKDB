@@ -19,4 +19,4 @@ script:
 - xctool -workspace MKDB.xcworkspace -scheme 'MKDB' -sdk iphonesimulator -arch i386 build
 
 - pod install
-- xcodebuild -workspace SDWebImage.xcworkspace -scheme 'MKDB' -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 6,OS=latest' test
+- xcodebuild -workspace MKDB.xcworkspace -scheme 'MKDB' -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 6,OS=latest' test
