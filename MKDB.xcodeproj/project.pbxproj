@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		725AE3D94E87EE9BAB81EC5B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A686FD4899990B21E64F1493 /* libPods.a */; };
+		D26A0B651D05544900E3B980 /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = D26A0B641D05544900E3B980 /* .travis.yml */; };
 		D2D35A0B1CE8B82F00FE6795 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D35A0A1CE8B82F00FE6795 /* main.m */; };
 		D2D35A0E1CE8B82F00FE6795 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D35A0D1CE8B82F00FE6795 /* AppDelegate.m */; };
 		D2D35A111CE8B82F00FE6795 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D35A101CE8B82F00FE6795 /* ViewController.m */; };
@@ -46,6 +47,7 @@
 		61541969DDABD0638DB7B5A3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		9BD36EBA4CFFB9CA5EB6164F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		A686FD4899990B21E64F1493 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D26A0B641D05544900E3B980 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		D2D35A061CE8B82F00FE6795 /* MKDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MKDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2D35A0A1CE8B82F00FE6795 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D2D35A0C1CE8B82F00FE6795 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 		D2D359FD1CE8B82F00FE6795 = {
 			isa = PBXGroup;
 			children = (
+				D26A0B641D05544900E3B980 /* .travis.yml */,
 				D2D35A081CE8B82F00FE6795 /* MKDB */,
 				D2D35A221CE8B82F00FE6795 /* MKDBTests */,
 				D2D35A2D1CE8B82F00FE6795 /* MKDBUITests */,
@@ -361,6 +364,7 @@
 			files = (
 				D2D35A191CE8B82F00FE6795 /* LaunchScreen.storyboard in Resources */,
 				D2D35A161CE8B82F00FE6795 /* Assets.xcassets in Resources */,
+				D26A0B651D05544900E3B980 /* .travis.yml in Resources */,
 				D2D35A141CE8B82F00FE6795 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
