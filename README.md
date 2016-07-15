@@ -27,7 +27,7 @@ TestRecord.m
 @implementation TestRecord
 
 - (NSString*) bindPrimaryKey{
-    return @"primaryKey";
+    return @"primaryKey"; //指定主键字段
 }
 
 @end
@@ -50,9 +50,10 @@ TestTable.m
 @implementation TestTable
 
 - (NSString *)tableName{
-    return @"test";
+    return @"test";  //定义表名
 }
 
+//定义表字段
 - (NSDictionary *)columnInfo{
     return @{
              @"primaryKey":@"INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL",
@@ -62,10 +63,12 @@ TestTable.m
              };
 }
 
+
 - (NSString*) contentUri{
     return CONTENT_URI_TEST;
 }
 
+//绑定的Record类，如没有指定(return nil) 数据返回是NSDictionary类型，返之就是指定的Record类型的对象
 - (Class) recordClass{
     return [TestRecord class];
 }
@@ -91,14 +94,16 @@ TestTable.m
 
 @implementation TestDatabaseManager
 
+//定义数据库名
 - (NSString*) databaseName{
     return @"MKDB.db";
 }
-
+//定义数据库版本号
 - (uint32_t) databaseVersion{
     return 6;
 }
 
+//把表添加到数据库中
 - (void) onAddTableToArray:(NSMutableArray<Class>*) array{
     [array addObject:TestTable.class];
 }
