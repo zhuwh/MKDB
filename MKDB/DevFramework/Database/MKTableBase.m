@@ -118,17 +118,13 @@
 - (int) updateWithDatabase : (FMDatabase*) db values:(NSDictionary*)values whereClause:(NSString*)whereClause whereArgs:(NSArray*)whereArgs{
     NSString* tableName = [self.child tableName];
     NSMutableArray* setValuesArray = [NSMutableArray array];
+    NSMutableArray* args = [NSMutableArray array];
     NSArray *columns = [values allKeys];
     for (NSString* column in columns) {
         id value = [values objectForKey:column];
         NSString* obj = nil;
-        if ([value isKindOfClass:[NSString class]]) {
-            obj = [NSString stringWithFormat:@"%@ = '%@'",column,value];
-        }else if([value isKindOfClass:[NSNull class]]){
-            obj = [NSString stringWithFormat:@"%@ = NULL",column];
-        }else{
-            obj = [NSString stringWithFormat:@"%@ = %@",column,value];
-        }
+        obj = [NSString stringWithFormat:@"%@ = ?",column];
+        [args addObject:value];
         [setValuesArray addObject:obj];
     }
     NSString *setValues = [setValuesArray componentsJoinedByString:@","];
@@ -137,7 +133,9 @@
         updateWhere = [NSString stringWithFormat:@" WHERE %@",whereClause];
     }
     NSString *sql =  [NSString stringWithFormat:@"UPDATE %@ SET %@%@ ;",tableName,setValues,updateWhere];
-    BOOL result = [db executeUpdate:sql withArgumentsInArray:whereArgs];
+    [args addObjectsFromArray:whereArgs];
+    
+    BOOL result = [db executeUpdate:sql withArgumentsInArray:args];
     if(!result){
         NSLog(@"error = %@", [db lastErrorMessage]);
         return 0;
