@@ -3,7 +3,7 @@ MKDB [![Build Status](https://travis-ci.org/zhuwh/MKDB.svg?branch=master)](https
 
 基于FMDB 的持久层操作库
 
-##数据库，表的定义
+##数据库与表的定义
  * 创建 MKRecord 类
 
 TestRecord.h
