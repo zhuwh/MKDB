@@ -63,7 +63,7 @@ TestTable.m
              };
 }
 
-
+//操作表要用到的标识
 - (NSString*) contentUri{
     return CONTENT_URI_TEST;
 }
