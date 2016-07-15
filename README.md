@@ -112,3 +112,59 @@ TestTable.m
 
 ```
 ##表的增册改查操作
+ * 插入
+当 MKTable 类中recordClass返回为nil时
+```
+    [databaseManager insertWithUri:CONTENT_URI_TEST values:@{@"name":[NSNull null],@"age":[NSNumber numberWithLongLong:LONG_LONG_MAX],@"tomas":@"this is tomas"}];
+```
+当指定了具体的类型时
+```
+    TestRecord *record = [TestRecord new];
+    record.age = [NSNumber numberWithInt:18];
+    record.tomas = @"hahah";
+    [databaseManager insertWithUri:CONTENT_URI_TEST recordObject:record];
+```
+ * 删除
+当 MKTable 类中recordClass返回为nil时
+```
+[databaseManager deleteWithUri:CONTENT_URI_TEST whereClause:nil whereArgs:nil];
+```
+当指定了具体的类型时
+```
+    TestRecord *record = [TestRecord new];
+    record.primaryKey = [NSNumber numberWithInt:1];
+    [[[AppContext sharedInstance] databaseManager] deleteWithUri:CONTENT_URI_TEST recordObject:record];
+```
+ * 修改
+当 MKTable 类中recordClass返回为nil时
+```
+    NSDictionary* dic = @{@"name":@"mark22",@"age":[NSNumber numberWithInt:20]};
+    [databaseManager updateWithUri:CONTENT_URI_TEST values:dic whereClause:@"age=?" whereArgs:@[[NSNumber numberWithLongLong:LONG_LONG_MAX]]];
+```
+当指定了具体的类型时
+```
+    TestRecord *record = [TestRecord new];
+    record.primaryKey = [NSNumber numberWithInt:2];
+    record.age = [NSNumber numberWithInt:32];
+    record.tomas = @"wowowow";
+    [databaseManager updateWithUri:CONTENT_URI_TEST recordObject:record];
+```
+ * 查询
+当 MKTable 类中recordClass返回为nil时
+```
+ NSArray* array = [databaseManager queryWithUri:CONTENT_URI_TEST columns:nil whereClause:nil whereArgs:nil sortOrder:nil];
+    for (TestRecord* record in array) {
+        NSString* name = record.name;
+        NSLog(@"%@",record);
+        NSLog(@"name=%@",name);
+    }
+```
+当指定了具体的类型时
+```
+ NSArray* array = [databaseManager queryWithUri:CONTENT_URI_TEST columns:nil whereClause:nil whereArgs:nil sortOrder:nil];
+    for (NSDictionary* record in array) {
+        NSString* name = record[@"name"];
+        NSLog(@"%@",record);
+        NSLog(@"name=%@",name);
+    }
+```
