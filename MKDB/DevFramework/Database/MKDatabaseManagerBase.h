@@ -34,7 +34,4 @@
 - (void)executeUpdate:(NSString*)sql withArgumentsInArray:(NSArray *)arguments;
 - (NSArray*) executeQuery:(NSString*)sql withArgumentsInArray:(NSArray *)arguments ;
 
--(void) create;
--(void) drop;
-
 @end
