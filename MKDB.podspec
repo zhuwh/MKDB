@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "MKDB"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = "基于FMDB 的持久层操作库"
   s.homepage     = "https://github.com/zhuwh/MKDB"
   s.license      = "MIT"

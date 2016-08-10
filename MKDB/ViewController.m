@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    NSString *resource = [[NSBundle mainBundle] pathForResource:@"" ofType:@""];
 }
 
 - (void)didReceiveMemoryWarning {
