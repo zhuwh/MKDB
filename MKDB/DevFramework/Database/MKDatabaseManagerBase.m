@@ -8,12 +8,13 @@
 
 #import "MKDatabaseManagerBase.h"
 #import <stdarg.h>
+#import "MKDynamicTable.h"
+#import "MKDynamicManagerTable.h"
 
 @interface MKDatabaseManagerBase()
 
 @property (weak,nonatomic) id<MKDatabaseProtocol> child;
 @property (strong,nonatomic,readwrite)FMDatabaseQueue* queue;
-//@property (strong,nonatomic,readwrite) NSMutableArray<MKTableBase*> *tableArray;
 @property (strong,nonatomic,readwrite) NSMutableDictionary<NSString*,MKTableBase*> *tableDictionary;
 
 @end
@@ -36,10 +37,10 @@
             self.tableDictionary = [NSMutableDictionary dictionary];
             
             NSMutableArray<Class> *array = [NSMutableArray array];
+            [array addObject:MKDynamicManagerTable.class];
             [self.child onAddTableToArray:array];
             for (Class clzz in array) {
                 MKTableBase* table = [clzz new];
-                
                 [self.tableDictionary setObject:table forKey:[table tableUri]];
             }
             
@@ -96,63 +97,127 @@
 }
 
 
--(void) insertWithUri:(NSString*)uri values:(NSDictionary*)values {
+-(void) insertWithUri:(NSString*)uri values:(NSDictionary*)values dynamicKey:(NSString*)key{
     [[self queue] inDatabase:^(FMDatabase *db) {
         MKTableBase* table = [self.tableDictionary objectForKey:uri];
+        if (key) {
+            ((MKDynamicTable*)table).key = key;
+        }
         [table.child insertWithDatabase:db values:values];
+        
+       
     }];
 }
 
-- (void) insertWithUri:(NSString*)uri recordObject:(MKRecord*)object{
+- (void) insertWithUri:(NSString*)uri recordObject:(MKRecord*)object dynamicKey:(NSString*)key{
     [[self queue] inDatabase:^(FMDatabase *db) {
         MKTableBase* table = [self.tableDictionary objectForKey:uri];
+        if (key) {
+            ((MKDynamicTable*)table).key = key;
+        }
         [table.child insertWithDatabase:db recordObject:object];
     }];
 }
 
-- (int) deleteWithUri:(NSString*)uri whereClause:(NSString*)whereClause whereArgs:(NSArray *) whereArgs{
+- (int) deleteWithUri:(NSString*)uri whereClause:(NSString*)whereClause whereArgs:(NSArray *) whereArgs dynamicKey:(NSString*)key{
     __block int num = 0;
     [[self queue] inDatabase:^(FMDatabase *db) {
         MKTableBase* table = [self.tableDictionary objectForKey:uri];
+        if (key) {
+            ((MKDynamicTable*)table).key = key;
+        }
         num = [table.child deleteWithDatabase:db whereClause:whereClause whereArgs:whereArgs];
     }];
     return num;
 }
 
-- (int) deleteWithUri:(NSString*)uri recordObject:(MKRecord*)object{
+- (int) deleteWithUri:(NSString*)uri recordObject:(MKRecord*)object dynamicKey:(NSString*)key{
     __block int num = 0;
     [[self queue] inDatabase:^(FMDatabase *db) {
         MKTableBase* table = [self.tableDictionary objectForKey:uri];
+        if (key) {
+            ((MKDynamicTable*)table).key = key;
+        }
         num = [table.child deleteWithDatabase:db recordObject:object];
     }];
     return num;
 }
 
-- (int) updateWithUri : (NSString*) uri values:(NSDictionary*)values whereClause:(NSString*)whereClause whereArgs:(NSArray*)whereArgs{
+- (int) updateWithUri : (NSString*) uri values:(NSDictionary*)values whereClause:(NSString*)whereClause whereArgs:(NSArray*)whereArgs dynamicKey:(NSString*)key{
     __block int num = 0;
     [[self queue] inDatabase:^(FMDatabase *db) {
         MKTableBase* table = [self.tableDictionary objectForKey:uri];
+        if (key) {
+            ((MKDynamicTable*)table).key = key;
+        }
         num = [table.child updateWithDatabase:db values:values whereClause:whereClause whereArgs:whereArgs];
     }];
     return num;
 }
 
-- (int) updateWithUri : (NSString*) uri recordObject:(MKRecord*)object{
+- (int) updateWithUri : (NSString*) uri recordObject:(MKRecord*)object dynamicKey:(NSString*)key{
     __block int num = 0;
     [[self queue] inDatabase:^(FMDatabase *db) {
         MKTableBase* table = [self.tableDictionary objectForKey:uri];
+        if (key) {
+            ((MKDynamicTable*)table).key = key;
+        }
         num = [table.child updateWithDatabase:db recordObject:object];
     }];
     return num;
 }
 
-- (NSArray*) queryWithUri:(NSString*)uri columns:(NSArray*)columns  whereClause:(NSString*)whereClause whereArgs:(NSArray *) whereArgs sortOrder:(NSString*)sortOrder{
+- (NSArray*) queryWithUri:(NSString*)uri columns:(NSArray*)columns  whereClause:(NSString*)whereClause whereArgs:(NSArray *) whereArgs sortOrder:(NSString*)sortOrder dynamicKey:(NSString*)key{
     __block NSArray* array = [NSArray array];
     [[self queue] inDatabase:^(FMDatabase *db) {
         MKTableBase* table = [self.tableDictionary objectForKey:uri];
+        if (key) {
+            ((MKDynamicTable*)table).key = key;
+        }
         array = [table.child queryWithDatabase:db columns:columns whereClause:whereClause whereArgs:whereArgs sortOrder:sortOrder];
     }];
     return array;
+}
+
+
+-(void) createDynamicWithUrl:(NSString*)uri key:(NSString*)key{
+    
+    [[self queue] inDatabase:^(FMDatabase *db) {
+        MKDynamicTable* table = (MKDynamicTable*)[self.tableDictionary objectForKey:uri];
+        if (key) {
+            table.key = key;
+        }else{
+             NSLog(@"%@",@"the key is nil");
+            return;
+        }
+        [table onCreateWithDatabase:db];
+        id<MKTableBaseProtocol> protocol = (id<MKTableBaseProtocol>)table;
+        [protocol settingsWithDatabase:db createOrAlert:YES oldVersion:0 newVersion:0];
+        
+        MKTableBase * managerTable = [self.tableDictionary objectForKey:MK_IDENTITY_DYNAMIC_MANAGER_SYS];
+        NSArray* array = [managerTable.child queryWithDatabase:db columns:nil whereClause:@"dynamic=? and key=?" whereArgs:@[[table dynamicTableName],key] sortOrder:nil];
+        if (array.count>0) {
+            return;
+        }
+        NSDictionary* values = @{@"key":key,@"dynamic":[table dynamicTableName]};
+        [managerTable.child insertWithDatabase:db values:values];
+    }];
+}
+
+-(void) dropDynamicWithUrl:(NSString*)uri key:(NSString*)key{
+    [[self queue] inDatabase:^(FMDatabase *db) {
+        MKDynamicTable* table = (MKDynamicTable*)[self.tableDictionary objectForKey:uri];
+        if (key) {
+            table.key = key;
+        }else{
+            NSLog(@"%@",@"the key is nil");
+            return;
+        }
+        [table onDropWithDatabase:db];
+        
+        MKTableBase * managerTable = [self.tableDictionary objectForKey:MK_IDENTITY_DYNAMIC_MANAGER_SYS];
+        [managerTable.child deleteWithDatabase:db whereClause:@"key=? and dynamic=?" whereArgs:@[key,[table dynamicTableName]]];
+    }];
 }
 
 

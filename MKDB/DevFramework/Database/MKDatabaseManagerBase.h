@@ -24,14 +24,17 @@
 
 @property (strong,nonatomic,readonly)FMDatabaseQueue* queue;
 
-- (void) insertWithUri:(NSString*)uri values:(NSDictionary*)values;
-- (void) insertWithUri:(NSString*)uri recordObject:(MKRecord*)object;
-- (int) deleteWithUri:(NSString*)uri whereClause:(NSString*)whereClause whereArgs:(NSArray *) whereArgs;
-- (int) deleteWithUri:(NSString*)uri recordObject:(MKRecord*)object;
-- (int) updateWithUri : (NSString*) uri values:(NSDictionary*)values whereClause:(NSString*)whereClause whereArgs:(NSArray*)whereArgs;
-- (int) updateWithUri : (NSString*) uri recordObject:(MKRecord*)object;
-- (NSArray*) queryWithUri:(NSString*)uri columns:(NSArray*)columns  whereClause:(NSString*)whereClause whereArgs:(NSArray *) whereArgs sortOrder:(NSString*)sortOrder;
-- (void)executeUpdate:(NSString*)sql withArgumentsInArray:(NSArray *)arguments;
+- (void) insertWithUri:(NSString*)uri values:(NSDictionary*)values dynamicKey:(NSString*)key;
+- (void) insertWithUri:(NSString*)uri recordObject:(MKRecord*)object dynamicKey:(NSString*)key;
+- (int) deleteWithUri:(NSString*)uri whereClause:(NSString*)whereClause whereArgs:(NSArray *) whereArgs dynamicKey:(NSString*)key;
+- (int) deleteWithUri:(NSString*)uri recordObject:(MKRecord*)object dynamicKey:(NSString*)key;
+- (int) updateWithUri : (NSString*) uri values:(NSDictionary*)values whereClause:(NSString*)whereClause whereArgs:(NSArray*)whereArgs dynamicKey:(NSString*)key;
+- (int) updateWithUri : (NSString*) uri recordObject:(MKRecord*)object dynamicKey:(NSString*)key;
+- (NSArray*) queryWithUri:(NSString*)uri columns:(NSArray*)columns  whereClause:(NSString*)whereClause whereArgs:(NSArray *) whereArgs sortOrder:(NSString*)sortOrder dynamicKey:(NSString*)key;
+- (void)executeUpdate:(NSString*)sql withArgumentsInArray:(NSArray *)arguments ;
 - (NSArray*) executeQuery:(NSString*)sql withArgumentsInArray:(NSArray *)arguments ;
+
+-(void) createDynamicWithUrl:(NSString*)uri key:(NSString*)key;
+-(void) dropDynamicWithUrl:(NSString*)uri key:(NSString*)key;
 
 @end

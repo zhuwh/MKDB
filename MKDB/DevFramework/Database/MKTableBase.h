@@ -36,5 +36,6 @@
 
 - (BOOL) onCreateWithDatabase : (FMDatabase*) db;
 - (BOOL) onAlterWithDatabase : (FMDatabase*) db oldVersion:(uint32_t) oldV newVersion:(uint32_t) newV;
+- (BOOL) onDropWithDatabase : (FMDatabase*) db;
 
 @end

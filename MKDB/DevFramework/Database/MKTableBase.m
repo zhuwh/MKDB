@@ -49,11 +49,14 @@
 }
 
 - (BOOL) onAlterWithDatabase : (FMDatabase*) db oldVersion:(uint32_t) oldV newVersion:(uint32_t) newV{
+    return [self onDropWithDatabase:db] | [self onCreateWithDatabase:db];
+;
+}
+
+- (BOOL) onDropWithDatabase : (FMDatabase*) db{
     NSString* tableName = [self.child tableName];
     NSString *sql =  [NSString stringWithFormat:@"DROP TABLE %@",tableName];
-    [db executeUpdate:sql];
-    [self onCreateWithDatabase:db];
-    return YES;
+    return [db executeUpdate:sql];
 }
 
 -(NSString*) tableUri{
@@ -239,5 +242,7 @@
     return dic;
 }
 
-
+- (Class) recordClass{
+    return nil;
+}
 @end

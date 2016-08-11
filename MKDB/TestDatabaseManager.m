@@ -8,6 +8,7 @@
 
 #import "TestDatabaseManager.h"
 #import "TestTable.h"
+#import "TTestTable.h"
 
 @implementation TestDatabaseManager
 
@@ -16,11 +17,12 @@
 }
 
 - (uint32_t) databaseVersion{
-    return 6;
+    return 8;
 }
 
 - (void) onAddTableToArray:(NSMutableArray<Class>*) array{
     [array addObject:TestTable.class];
+    [array addObject:TTestTable.class];
 }
 
 @end

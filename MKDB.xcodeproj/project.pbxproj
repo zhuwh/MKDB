@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		725AE3D94E87EE9BAB81EC5B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A686FD4899990B21E64F1493 /* libPods.a */; };
+		D240EA551D5B27EB0070FB39 /* MKDynamicTable.m in Sources */ = {isa = PBXBuildFile; fileRef = D240EA541D5B27EB0070FB39 /* MKDynamicTable.m */; };
+		D240EA581D5B30470070FB39 /* MKDynamicManagerTable.m in Sources */ = {isa = PBXBuildFile; fileRef = D240EA571D5B30470070FB39 /* MKDynamicManagerTable.m */; };
+		D240EA5B1D5C11E20070FB39 /* TTestTable.m in Sources */ = {isa = PBXBuildFile; fileRef = D240EA5A1D5C11E20070FB39 /* TTestTable.m */; };
 		D26A0B651D05544900E3B980 /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = D26A0B641D05544900E3B980 /* .travis.yml */; };
 		D2D35A0B1CE8B82F00FE6795 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D35A0A1CE8B82F00FE6795 /* main.m */; };
 		D2D35A0E1CE8B82F00FE6795 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D35A0D1CE8B82F00FE6795 /* AppDelegate.m */; };
@@ -47,6 +50,12 @@
 		61541969DDABD0638DB7B5A3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		9BD36EBA4CFFB9CA5EB6164F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		A686FD4899990B21E64F1493 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D240EA531D5B27EB0070FB39 /* MKDynamicTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKDynamicTable.h; sourceTree = "<group>"; };
+		D240EA541D5B27EB0070FB39 /* MKDynamicTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKDynamicTable.m; sourceTree = "<group>"; };
+		D240EA561D5B30470070FB39 /* MKDynamicManagerTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKDynamicManagerTable.h; sourceTree = "<group>"; };
+		D240EA571D5B30470070FB39 /* MKDynamicManagerTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKDynamicManagerTable.m; sourceTree = "<group>"; };
+		D240EA591D5C11E20070FB39 /* TTestTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTestTable.h; sourceTree = "<group>"; };
+		D240EA5A1D5C11E20070FB39 /* TTestTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTestTable.m; sourceTree = "<group>"; };
 		D26A0B641D05544900E3B980 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		D2D35A061CE8B82F00FE6795 /* MKDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MKDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2D35A0A1CE8B82F00FE6795 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -210,6 +219,10 @@
 				D2D35A4D1CE8BA3900FE6795 /* MKTableBase.h */,
 				D2D35A4E1CE8BA3900FE6795 /* MKTableBase.m */,
 				D2D35A621CE9687700FE6795 /* MKDB.h */,
+				D240EA531D5B27EB0070FB39 /* MKDynamicTable.h */,
+				D240EA541D5B27EB0070FB39 /* MKDynamicTable.m */,
+				D240EA561D5B30470070FB39 /* MKDynamicManagerTable.h */,
+				D240EA571D5B30470070FB39 /* MKDynamicManagerTable.m */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -252,6 +265,8 @@
 				D2D35A531CE8BA3900FE6795 /* TestTable.m */,
 				D2D35A501CE8BA3900FE6795 /* TestRecord.h */,
 				D2D35A511CE8BA3900FE6795 /* TestRecord.m */,
+				D240EA591D5C11E20070FB39 /* TTestTable.h */,
+				D240EA5A1D5C11E20070FB39 /* TTestTable.m */,
 			);
 			name = Database;
 			sourceTree = "<group>";
@@ -438,8 +453,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D240EA5B1D5C11E20070FB39 /* TTestTable.m in Sources */,
 				D2D35A5A1CE8BA3900FE6795 /* MKRecord.m in Sources */,
 				D2D35A5C1CE8BA3900FE6795 /* TestRecord.m in Sources */,
+				D240EA551D5B27EB0070FB39 /* MKDynamicTable.m in Sources */,
 				D2D35A111CE8B82F00FE6795 /* ViewController.m in Sources */,
 				D2D35A541CE8BA3900FE6795 /* AppContext.m in Sources */,
 				D2D35A5D1CE8BA3900FE6795 /* TestTable.m in Sources */,
@@ -447,6 +464,7 @@
 				D2D35A0E1CE8B82F00FE6795 /* AppDelegate.m in Sources */,
 				D2D35A581CE8BA3900FE6795 /* TestDatabaseManager.m in Sources */,
 				D2D35A0B1CE8B82F00FE6795 /* main.m in Sources */,
+				D240EA581D5B30470070FB39 /* MKDynamicManagerTable.m in Sources */,
 				D2D35A591CE8BA3900FE6795 /* MKDatabaseManagerBase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
